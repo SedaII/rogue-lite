@@ -1,39 +1,36 @@
-import Phaser from 'phaser'
-import Player from '../characters/player'
+import Phaser from "phaser";
+import Player from "../characters/player";
 
-export default class Level1 extends Phaser.Scene
-{
-	constructor()
-	{
-		super('level1');
+export default class Level1 extends Phaser.Scene {
+  constructor() {
+    super("level1");
+  }
 
-	}
+  preload() {
+    this.load.spritesheet("dude", "assets/sprites/dude.png", {
+      frameWidth: 32,
+      frameHeight: 48,
+    });
+  }
 
-	preload()
-    {
-        this.load.spritesheet('dude', 'assets/sprites/dude.png', { frameWidth: 32, frameHeight: 48 });
-    }
+  create() {
+    this.createScenePhysics();
 
-    create()
-    {
-        this.createPhysics()
+    this.cursors = this.input.keyboard.createCursorKeys();
+  }
 
-        this.cursors = this.input.keyboard.createCursorKeys();
-        
-    }
+  createScenePhysics() {
+    const ground = this.add
+      .rectangle(0, 560, 800, 40, 0x6666ff)
+      .setOrigin(0, 0);
+    this.physics.add.staticGroup(ground);
 
-    createPhysics()
-    {
-        const ground = this.add.rectangle(0, 560, 800, 40, 0x6666ff).setOrigin(0,0);
-        this.physics.add.staticGroup(ground);
+    this.player = new Player(this, 400, 300, "dude", "4");
 
-        this.player = new Player(this, 400, 300, 'dude', '4');
+    this.physics.add.collider(this.player, ground);
+  }
 
-        this.physics.add.collider(this.player, ground);
-    }
-
-    update()
-    {
-        this.player.update();
-    }
+  update() {
+    this.player.update();
+  }
 }
