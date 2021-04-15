@@ -8,7 +8,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     scene.physics.add.existing(this);
 
     this.scene = scene;
-    // this.Q = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
+    this.Q = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.Q);
     this.D = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.D);
     this.SPACE = scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
@@ -16,7 +16,7 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
   }
 
   update() {
-    if (this.scene.cursors.Q.isDown) {
+    if (this.scene.cursors.left.isDown) {
       this.setVelocityX(-100);
     } else if (this.scene.cursors.right.isDown) {
       this.setVelocityX(100);
