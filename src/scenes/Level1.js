@@ -10,7 +10,7 @@ export default class Level1 extends Phaser.Scene
 
 	preload()
     {
-        
+        this.load.spritesheet('dude', 'assets/sprites/dude.png', { frameWidth: 32, frameHeight: 48 });
     }
 
     create()
@@ -18,7 +18,7 @@ export default class Level1 extends Phaser.Scene
         let ground = this.add.rectangle(0, 560, 800, 40, 0x6666ff).setOrigin(0,0);
         this.physics.add.staticGroup(ground);
 
-        this.player = new Player(this, 400, 300, 40, 40, 0x9966ff);
+        this.player = new Player(this, 400, 300, 'dude', '4');
 
         this.physics.add.collider(this.player, ground);
 
