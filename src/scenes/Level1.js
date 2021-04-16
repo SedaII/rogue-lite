@@ -20,11 +20,16 @@ export default class Level1 extends Phaser.Scene {
   }
 
   create() {
-    //this.player = this.createPlayer();
+    this.player = this.createPlayer();
     this.enemy = this.createEnemy();
     this.createScenePhysics();
 
     this.cursors = this.input.keyboard.createCursorKeys();
+  }
+
+  createPlayer() {
+    const player = new Player(this, 400, 300, "dude", "4");
+    return player;
   }
 
   createEnemy() {
@@ -36,9 +41,6 @@ export default class Level1 extends Phaser.Scene {
       .rectangle(0, 560, 800, 40, 0x6666ff)
       .setOrigin(0, 0);
     this.physics.add.staticGroup(ground);
-
-    this.player = new Player(this, 400, 300, "dude", "4");
-
     this.physics.add.collider(this.player, ground);
     this.physics.add.collider(this.enemy, ground);
   }
