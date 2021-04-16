@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Enemy from "../characters/enemy";
 import Player from "../characters/player";
 
 export default class Level1 extends Phaser.Scene {
@@ -11,12 +12,23 @@ export default class Level1 extends Phaser.Scene {
       frameWidth: 32,
       frameHeight: 48,
     });
+
+    this.load.spritesheet("enemy", "assets/sprites/enemy.png", {
+      frameWidth: 32,
+      frameHeight: 48,
+    });
   }
 
   create() {
+    //this.player = this.createPlayer();
+    this.enemy = this.createEnemy();
     this.createScenePhysics();
 
     this.cursors = this.input.keyboard.createCursorKeys();
+  }
+
+  createEnemy() {
+    return new Enemy(this, 200, 300, "enemy", "7");
   }
 
   createScenePhysics() {
@@ -28,7 +40,9 @@ export default class Level1 extends Phaser.Scene {
     this.player = new Player(this, 400, 300, "dude", "4");
 
     this.physics.add.collider(this.player, ground);
+    this.physics.add.collider(this.enemy, ground);
   }
+
 
   update() {
     this.player.update();
