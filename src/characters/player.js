@@ -24,16 +24,18 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
       0x6666ff
     );
 
-    this.scene.physics.add.overlap(
-      this,
-      this.scene.foe,
-      this.scene.hitFoe(),
-      null,
-      this
-    );
+    // this.scene.physics.add.overlap(
+    //   hitBox,
+    //   this.scene.enemy,
+    //   this.scene.hitEnemy(),
+    //   null,
+    //   this
+    // );
+
     setTimeout(function () {
       hitBox.destroy();
     }, 10);
+    return hitBox;
   }
 
   update() {
