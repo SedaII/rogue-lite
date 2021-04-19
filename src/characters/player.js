@@ -1,4 +1,5 @@
 import Phaser from "phaser";
+import Enemy from "./enemy";
 
 export default class Player extends Phaser.Physics.Arcade.Sprite {
   constructor(scene, x, y, texture, frame) {
@@ -19,23 +20,27 @@ export default class Player extends Phaser.Physics.Arcade.Sprite {
     const hitBox = this.scene.add.rectangle(
       this.x + 20,
       this.y,
-      20,
+      40,
       20,
       0x6666ff
     );
 
-    // this.scene.physics.add.overlap(
-    //   hitBox,
-    //   this.scene.enemy,
-    //   this.scene.hitEnemy(),
-    //   null,
-    //   this
-    // );
+    const arr = this.scene.physics.overlapRect(
+      this.x + 20,
+      this.y,
+      40,
+      20
+    );
+
+    if(arr.length >= 1) {
+      if(arr[0].gameObject instanceof Enemy) {
+        arr[0].gameObject.destroy();
+      }
+    }
 
     setTimeout(function () {
       hitBox.destroy();
     }, 10);
-    return hitBox;
   }
 
   update() {
