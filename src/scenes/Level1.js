@@ -22,7 +22,10 @@ export default class Level1 extends Phaser.Scene {
   create() {
     this.player = this.createPlayer();
 
-    this.enemy = this.createEnemy();
+    this.enemyGroup = this.createGroup();
+    this.createEnemy(200, 300);
+    this.createEnemy(300, 300);
+    this.createEnemy(600, 300);
 
     this.createScenePhysics();
 
@@ -33,9 +36,12 @@ export default class Level1 extends Phaser.Scene {
     return new Player(this, 400, 300, "dude", "4");
   }
 
-  createEnemy() {
-    const enemy = new Enemy(this, 200, 300, "enemy", "7");
-    this.physics.add.group(enemy);
+  createGroup() {
+    return this.physics.add.group();
+  }
+
+  createEnemy(x, y) {
+    const enemy = new Enemy(this, x, y, "enemy", "7");
     return enemy;
   }
 
@@ -45,28 +51,10 @@ export default class Level1 extends Phaser.Scene {
       .setOrigin(0, 0);
     this.physics.add.staticGroup(ground);
 
-    this.physics.add.collider(this.enemy, ground);
+    this.physics.add.collider(this.enemyGroup, ground);
     this.physics.add.collider(this.player, ground);
-    this.physics.add.collider(this.enemy, ground);
-    this.physics.add.collider(this.player, this.enemy);
-    this.physics.add.collider(
-      this.player.attack(),
-      this.enemy,
-      this.hitEnemy,
-      null,
-      this
-    );
-    this.physics.add.overlap(
-      this.player.attack(),
-      this.enemy,
-      this.hitEnemy,
-      null,
-      this
-    );
-  }
-
-  hitEnemy() {
-    this.enemy.destroy();
+    this.physics.add.collider(this.player, this.enemyGroup);
+    this.physics.add.collider(this.enemyGroup, this.enemyGroup);
   }
 
   update() {
