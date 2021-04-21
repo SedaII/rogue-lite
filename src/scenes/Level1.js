@@ -25,7 +25,9 @@ export default class Level1 extends Phaser.Scene {
     this.enemyGroup = this.createGroup();
     this.createEnemy(200, 300);
     this.createEnemy(300, 300);
-    this.createEnemy(600, 300);
+    this.createEnemy(700, 300);
+    this.createEnemy(800, 300);
+    this.createEnemy(100, 300);
 
     this.createScenePhysics();
 
@@ -33,7 +35,7 @@ export default class Level1 extends Phaser.Scene {
   }
 
   createPlayer() {
-    return new Player(this, 400, 300, "dude", "4");
+    return new Player(this, 400, 300, "dude", "0");
   }
 
   createGroup() {
@@ -41,8 +43,7 @@ export default class Level1 extends Phaser.Scene {
   }
 
   createEnemy(x, y) {
-    const enemy = new Enemy(this, x, y, "enemy", "7");
-    return enemy;
+    return new Enemy(this, x, y, "enemy", "0");
   }
 
   createScenePhysics() {
@@ -59,5 +60,8 @@ export default class Level1 extends Phaser.Scene {
 
   update() {
     this.player.update();
+    this.enemyGroup.children.each(function(enemy) {
+      enemy.update();
+    }, this);
   }
 }
